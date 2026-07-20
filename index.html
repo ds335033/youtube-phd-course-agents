@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UDE UI - YouTube Video Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <script>
+        // Authentication Gate
+        if (!localStorage.getItem('auth_token')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="logo-circle">U</div>
+            <span class="brand-name">UDE UI <span class="brand-sub">Academy</span></span>
+        </div>
+        <div class="nav-search">
+            <input type="text" placeholder="Search for anything...">
+        </div>
+        <div class="nav-user">
+            <div class="user-avatar">
+                <img src="https://ui-avatars.com/api/?name=Darren&background=6366f1&color=fff" alt="User Avatar">
+            </div>
+        </div>
+    </nav>
+
+    <main class="course-container">
+        <!-- Main Video Area -->
+        <section class="main-content">
+            <div class="video-wrapper">
+                <iframe id="main-player" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            
+            <div class="course-info">
+                <div class="course-header">
+                    <h1 id="course-title">Loading course...</h1>
+                    <div class="course-stats">
+                        <span class="badge">Bestseller</span>
+                        <span class="rating">⭐️⭐️⭐️⭐️⭐️ 4.9 (12,434 ratings)</span>
+                        <span class="students">104,233 students</span>
+                    </div>
+                </div>
+
+                <div class="course-tabs">
+                    <button class="tab active">Overview</button>
+                    <button class="tab" data-target="qa">Q&A</button>
+                    <button class="tab" data-target="ai">AI Tutor ✨</button>
+                    <button class="tab" data-target="notes">Notes</button>
+                    <button class="tab">Announcements</button>
+                </div>
+
+                <div class="tab-content">
+                    <h3>About this course</h3>
+                    <p id="course-description">Loading description...</p>
+                    
+                    <div class="instructor-card">
+                        <img src="https://ui-avatars.com/api/?name=Bag+Head&background=1f2937&color=fff" alt="Instructor" class="instructor-avatar">
+                        <div class="instructor-details">
+                            <h4><span id="channel-name">Instructor</span></h4>
+                            <p class="instructor-title">YouTube Virtuoso & Master Teacher</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Tutor Content -->
+                <div class="tab-content" id="ai-tutor-content" style="display: none; margin-top: 20px;">
+                    <h3>Vertex AI / Codex Tutor</h3>
+                    <p>Ask our fine-tuned AI about the YouTube algorithm or the current module.</p>
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <input type="text" id="ai-question" placeholder="Ask a question..." style="flex: 1; padding: 10px; border-radius: 6px; border: 1px solid #333; background: #1a1a1a; color: white;">
+                        <button id="ai-ask-btn" style="padding: 10px 20px; background: #6366f1; color: white; border: none; border-radius: 6px; cursor: pointer;">Ask AI</button>
+                    </div>
+                    <div id="ai-response" style="margin-top: 20px; padding: 15px; background: rgba(99, 102, 241, 0.1); border-left: 4px solid #6366f1; display: none;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sidebar Curriculum -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Course Content</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 15%"></div>
+                </div>
+                <p class="progress-text">15% complete</p>
+            </div>
+            <div class="curriculum" id="curriculum-list">
+                <!-- Videos will be injected here via app.js -->
+            </div>
+        </aside>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

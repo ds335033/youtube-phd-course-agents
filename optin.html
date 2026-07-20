@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Download: The YouTube Retention Architecture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="optin.css">
+</head>
+<body>
+    <div class="background-glow"></div>
+    <div class="background-glow top-right"></div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo">UDE UI <span>Academy</span></div>
+        </header>
+
+        <main class="main-content">
+            <div class="text-content">
+                <span class="badge">FREE DEVELOPER PLAYBOOK</span>
+                <h1 class="headline">The YouTube Retention <span class="gradient-text">Architecture</span></h1>
+                <p class="subheadline">Discover the 5 engineered blueprints for viral hooks and massive AVD (Average View Duration) that elite creators use to manipulate the algorithm.</p>
+                
+                <ul class="value-props">
+                    <li><span class="icon">⚡️</span> <strong>The 5-Second Protocol:</strong> Hook viewers before they scroll.</li>
+                    <li><span class="icon">🧠</span> <strong>Psychological Pacing:</strong> Keep them engaged until the end.</li>
+                    <li><span class="icon">📈</span> <strong>CTR Manipulation:</strong> Titles and thumbnails that force clicks.</li>
+                    <li><span class="icon">🤖</span> <strong>Algorithm Exploits:</strong> What the AI actually cares about.</li>
+                </ul>
+
+                <div class="form-container">
+                    <h3>Get Instant Access + Unlock Course Dashboard</h3>
+                    <form id="optin-form">
+                        <div class="input-group">
+                            <input type="text" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="email" placeholder="Your Email Address" required>
+                        </div>
+                        <button type="submit" id="submit-btn" class="cta-button">
+                            Unlock The Architecture <span class="arrow">→</span>
+                        </button>
+                    </form>
+                    <p class="privacy-text">We respect your privacy. No spam, ever.</p>
+                </div>
+            </div>
+
+            <div class="visual-content">
+                <div class="book-mockup">
+                    <div class="book-cover">
+                        <h3>THE YOUTUBE RETENTION ARCHITECTURE</h3>
+                        <p>5 Blueprints for Viral Hooks & AVD</p>
+                        <div class="cover-design">
+                            <div class="circle"></div>
+                            <div class="line"></div>
+                            <div class="line short"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-proof">
+                    <div class="avatars">
+                        <img src="https://ui-avatars.com/api/?name=Alex&background=1f2937&color=fff" alt="User">
+                        <img src="https://ui-avatars.com/api/?name=Sarah&background=374151&color=fff" alt="User">
+                        <img src="https://ui-avatars.com/api/?name=Mike&background=4b5563&color=fff" alt="User">
+                    </div>
+                    <p>Join <strong>14,203+</strong> creators who have scaled their channels.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+        document.getElementById('optin-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            btn.innerHTML = 'Unlocking...';
+            btn.disabled = true;
+
+            try {
+                // Post to the local Python FastAPI server
+                const res = await fetch('/api/optin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email })
+                });
+                
+                const data = await res.json();
+                
+                if(res.ok && data.status === 'success') {
+                    btn.innerHTML = 'Success! Redirecting...';
+                    setTimeout(() => {
+                        // Redirect to the lead magnet
+                        window.location.href = 'lead_magnet.html';
+                    }, 1000);
+                } else {
+                    alert('Error: ' + (data.message || 'Could not capture lead.'));
+                    btn.innerHTML = 'Unlock The Architecture <span class="arrow">→</span>';
+                    btn.disabled = false;
+                }
+            } catch(error) {
+                alert('Server connection error. Please try again later.');
+                console.error(error);
+                btn.innerHTML = 'Unlock The Architecture <span class="arrow">→</span>';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
+                    btn.innerHTML = 'Error. Try Again.';
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                console.error(error);
+                // Fallback for local testing if server is not running
+                btn.innerHTML = 'Success! (Local Mode)';
+                setTimeout(() => {
+                    window.location.href = 'lead_magnet.html';
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

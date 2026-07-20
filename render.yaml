@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: youtube-phd-academy
+    env: docker
+    plan: free
+    region: singapore
+    envVars:
+      - key: DATABASE_URL
+        value: postgresql://youtube_phd_user:LOBT3nb8CxgH8YDjckpWkRRfi2auj9po@dpg-d9f8rvrbc2fs73avv9sg-a/youtube_phd

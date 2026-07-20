@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Antigravity IDE & Ecosystem Basics",
+    "id": "dQw4w9WgXcQ",
+    "description": "Welcome to the PhD standard of AI integration. In this module, we deconstruct the Antigravity Software Developer environment. You will learn the programmatic foundations of IDE sandbox architecture, simulating containerized environments, and bypassing standard API limits via headless agent deployment. We will examine the neural topology of large language models and how to bridge them with your local execution environment to achieve a 10x multiplier in output speed. The configuration of your developer environment is not just an aesthetic choice; it is the fundamental framework that dictates your cognitive operational capacity."
+  },
+  {
+    "title": "Antigravity AI Agent Protocols",
+    "id": "dQw4w9WgXcQ",
+    "description": "The era of single-prompt AI is dead. This module covers the orchestration of multi-agent swarms. We will construct a mathematical model for task delegation, utilizing the Antigravity CLI to provision specialized sub-agents. You will write complex Python 3.1x scripts that allow your \"Researcher Node\" to autonomously scrape web data, while your \"SEO Analyst Node\" dynamically recalculates your metadata weighting against the YouTube recommendation algorithm. You are no longer a content creator; you are an AI Systems Engineer managing a fleet of cognitive workers."
+  },
+  {
+    "title": "Enterprise Antigravity Deployment",
+    "id": "dQw4w9WgXcQ",
+    "description": "Scaling from a local sandbox to an enterprise-grade cloud architecture. Here, we interface directly with Google Cloud Run and Vertex AI. You will learn the intricacies of Dockerizing your agent workflows, establishing secure CI/CD pipelines, and utilizing Supabase Edge Functions for millisecond latency on your API calls. We will analyze the cost-efficiency of serverless architectures versus dedicated GPU provisioning for your massive automated rendering pipelines."
+  },
+  {
+    "title": "Advanced University Media Theory",
+    "id": "dQw4w9WgXcQ",
+    "description": "This is Harvard-level media psychology applied to the modern algorithm. We dissect the neurobiology of attention, analyzing how specific frame cuts and color grading combinations trigger dopamine responses in the prefrontal cortex. You will study case studies of massive viral anomalies, deconstructing their \"retention loops\" using predictive analytics. We map the YouTube algorithm not as a black box, but as a deterministic neural network designed to maximize session time, and we provide you the exact variables needed to manipulate its weighting."
+  },
+  {
+    "title": "Antigravity Video Processing",
+    "id": "dQw4w9WgXcQ",
+    "description": "The manual editing timeline is obsolete. This module introduces you to programmatic video ingestion. Using Antigravity agentic workflows, you will construct a pipeline that accepts raw 4K footage, utilizes AI to mathematically detect silences and non-engaging segments, and executes automated multi-cam cutting protocols via Python. We will explore FFMPEG integration for headless rendering, allowing your server to output a finalized, color-graded export while you sleep."
+  },
+  {
+    "title": "Cinematic AI Generation",
+    "id": "dQw4w9WgXcQ",
+    "description": "Fusing traditional cinematography with cutting-edge generative models. We explore the implementation of multi-modal diffusion engines for seamless B-roll replacement and VFX composition. You will learn advanced in-painting techniques, programmatic scene generation via API, and voice cloning protocols to fix corrupted audio takes autonomously. This is where software engineering meets the art of cinematic storytelling."
+  }
+]

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - YouTube Video Academy PhD Course</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="optin.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: rgba(15, 23, 42, 0.7);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            text-align: center;
+        }
+        .login-container h2 {
+            margin-bottom: 24px;
+            font-size: 1.8rem;
+        }
+        .login-container .error {
+            color: #ef4444;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-glow"></div>
+    <div class="background-glow top-right"></div>
+
+    <header class="header" style="text-align: center; padding-top: 40px;">
+        <div class="logo">UDE UI <span>Academy</span></div>
+    </header>
+
+    <div class="login-container">
+        <h2>Student Login</h2>
+        <div id="error-msg" class="error">Invalid credentials</div>
+        <form id="login-form">
+            <div class="input-group">
+                <input type="email" id="login-email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="login-password" placeholder="Password" required>
+            </div>
+            <button type="submit" id="login-btn" class="cta-button" style="width: 100%;">
+                Enter Dashboard <span class="arrow">→</span>
+            </button>
+        </form>
+        <p class="privacy-text" style="margin-top: 20px;">
+            Not a student? <a href="optin.html" style="color: var(--accent);">Unlock the Free Masterclass</a>
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('login-btn');
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            btn.innerHTML = 'Authenticating...';
+            btn.disabled = true;
+            errorMsg.style.display = 'none';
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await res.json();
+                if(res.ok) {
+                    btn.innerHTML = 'Success!';
+                    localStorage.setItem('auth_token', data.token);
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 500);
+                } else {
+                    errorMsg.textContent = data.detail || 'Login failed';
+                    errorMsg.style.display = 'block';
+                    btn.innerHTML = 'Enter Dashboard <span class="arrow">→</span>';
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Server error. Try again.';
+                errorMsg.style.display = 'block';
+                btn.innerHTML = 'Enter Dashboard <span class="arrow">→</span>';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
