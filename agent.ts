@@ -1,17 +1,17 @@
-import { LlmAgent, tool, GOOGLE_SEARCH } from '@google/adk';
+import { LlmAgent, GOOGLE_SEARCH } from '@google/adk';
 import { z } from 'zod';
 
 // ==========================================
 // 🚀 SWARM TOOLS
 // ==========================================
 
-export const analyzeYouTubeStats = tool({
+export const analyzeYouTubeStats: any = {
   name: 'analyzeYouTubeStats',
   description: 'Fetches the current YouTube channel statistics for a student, such as retention and CTR.',
   parameters: z.object({
     channelUrl: z.string().describe('The URL or handle of the YouTube channel'),
   }),
-  execute: async ({ channelUrl }) => {
+  execute: async ({ channelUrl }: { channelUrl: string }) => {
     // If we have a real API key, we would fetch from YouTube API here.
     // const apiKey = process.env.YOUTUBE_API_KEY;
     // if (apiKey) { const res = await fetch(\`https://youtube.googleapis.com/youtube/v3/channels?part=statistics&id=\${channelUrl}&key=\${apiKey}\`); ... }
@@ -26,16 +26,16 @@ export const analyzeYouTubeStats = tool({
       recommendedModules: ['mastering-the-hook', 'thumbnail-psychology'],
     };
   }
-});
+};
 
-export const evaluateSocraticResponse = tool({
+export const evaluateSocraticResponse: any = {
   name: 'evaluateSocraticResponse',
   description: 'Evaluates a student\'s answer to a Socratic question to determine comprehension.',
   parameters: z.object({
     question: z.string(),
     studentAnswer: z.string(),
   }),
-  execute: async ({ question, studentAnswer }) => {
+  execute: async ({ question, studentAnswer }: { question: string; studentAnswer: string }) => {
     // Mock logic for determining if the student passed the socratic test
     const passed = studentAnswer.length > 20; 
     return {
@@ -43,15 +43,15 @@ export const evaluateSocraticResponse = tool({
       feedback: passed ? "Great synthesis of the core principles." : "Can you expand more on the exact psychological triggers?",
     };
   }
-});
+};
 
-export const getYouTubeApiMetrics = tool({
+export const getYouTubeApiMetrics: any = {
   name: 'getYouTubeApiMetrics',
   description: 'Connects to the YouTube Data API to pull live creator intelligence metrics.',
   parameters: z.object({
     videoUrl: z.string(),
   }),
-  execute: async ({ videoUrl }) => {
+  execute: async ({ videoUrl }: { videoUrl: string }) => {
     // Mock YouTube API implementation
     return {
       velocity: "High",
@@ -59,7 +59,7 @@ export const getYouTubeApiMetrics = tool({
       viewDuration: "04:32",
     };
   }
-});
+};
 
 // ==========================================
 // 🚀 THE GOOGLE ADK SWARM HIERARCHY
@@ -81,7 +81,7 @@ export const MasterOrchestratorAgent = new LlmAgent({
     You enforce the premium visual identity (Tailwind v4, oklch colors) and 
     the hybrid database architecture (Neon + Firebase).
   `,
-  tools: [GOOGLE_SEARCH]
+  tools: [GOOGLE_SEARCH as any]
 });
 
 /**
@@ -113,7 +113,7 @@ export const AcademicArchitectureAgent = new LlmAgent({
     generate a bespoke 5-module curriculum.
     Focus on aggressive growth, retention psychology, and creator monetisation.
   `,
-  tools: [analyzeYouTubeStats]
+  tools: [analyzeYouTubeStats as any]
 });
 
 /**
@@ -130,7 +130,7 @@ export const AiTutorAgent = new LlmAgent({
     you must reply with a question like "What psychological trigger is your thumbnail currently missing?"
     Force the student to think. Do not allow them to proceed until they demonstrate comprehension.
   `,
-  tools: [evaluateSocraticResponse]
+  tools: [evaluateSocraticResponse as any]
 });
 
 /**
@@ -147,7 +147,7 @@ export const YoutubeIntelligenceAgent = new LlmAgent({
     and provide aggressive, actionable insights on A/B testing thumbnails, titles, 
     and optimizing retention curves.
   `,
-  tools: [getYouTubeApiMetrics, GOOGLE_SEARCH]
+  tools: [getYouTubeApiMetrics as any, GOOGLE_SEARCH as any]
 });
 
 /**

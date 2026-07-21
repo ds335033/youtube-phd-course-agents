@@ -1,4 +1,4 @@
-import { LlmAgent, tool } from '@google/adk';
+import { LlmAgent } from '@google/adk';
 import { z } from 'zod';
 
 // Global state for AI credits tracking
@@ -8,14 +8,14 @@ let REMAINING_AI_CREDITS = 14430; // $204.99 AUD allocation
  * Tool: Google Veo 3.1 Media Orchestration (Mock)
  * Includes a strict safety threshold to monitor AI credits.
  */
-export const triggerVeoMediaTool = tool({
+export const triggerVeoMediaTool: any = {
   name: 'triggerVeoMedia',
   description: 'Triggers Google Veo 3.1 for cinematic B-roll generation. MUST check credit balance before executing.',
   parameters: z.object({
     prompt: z.string().describe('The cinematic prompt for Google Veo 3.1'),
     estimatedCreditCost: z.number().describe('The estimated cost in AI credits for this generation (usually ~500 per clip)'),
   }),
-  execute: async ({ prompt, estimatedCreditCost }) => {
+  execute: async ({ prompt, estimatedCreditCost }: { prompt: string; estimatedCreditCost: number }) => {
     console.log(`[Media Orchestrator] Requesting Veo 3.1 clip for: "${prompt}"`);
     
     // Strict safety threshold check
@@ -39,7 +39,7 @@ export const triggerVeoMediaTool = tool({
       remainingCredits: REMAINING_AI_CREDITS
     };
   }
-});
+};
 
 /**
  * 1. Researcher Agent
@@ -85,7 +85,7 @@ export const mediaOrchestratorAgent = new LlmAgent({
     Use the triggerVeoMediaTool to generate cinematic B-roll prompts.
     CRITICAL: You are strictly limited to the account's remaining AI credits. Do not exceed the allocation.
   `,
-  tools: [triggerVeoMediaTool]
+  tools: [triggerVeoMediaTool as any]
 });
 
 /**
@@ -97,19 +97,19 @@ export async function runCurriculumPipeline() {
   
   // 1. Researcher Phase
   console.log('1. Running Researcher Agent...');
-  const researchResult = await researcherAgent.run({
+  const researchResult = await (researcherAgent as any).invoke({
     prompt: "Generate a Silver Play Button growth module utilizing actual channel data from Sonic Cinema."
   });
 
   // 2. Scriptwriter Phase
   console.log('2. Running Scriptwriter Agent...');
-  const scriptResult = await scriptwriterAgent.run({
+  const scriptResult = await (scriptwriterAgent as any).invoke({
     prompt: `Format this research into a lesson transcript and quiz: ${researchResult.text}`
   });
 
   // 3. Media Orchestration Phase
   console.log('3. Running Media Orchestrator Agent...');
-  const mediaResult = await mediaOrchestratorAgent.run({
+  const mediaResult = await (mediaOrchestratorAgent as any).invoke({
     prompt: `Analyze this script and generate 2 cinematic B-roll clips (budget: 1000 credits total): ${scriptResult.text}`
   });
 
