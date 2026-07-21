@@ -1,0 +1,88 @@
+openapi: 3.1.0
+info:
+  title: YouTube PhD Academy Swarm Agents API
+  description: API for interacting with the AI Agentic Expert Swarm (Curriculum Builder, UI/UX Architect, YouTube Expert, Financial Agent, etc.) for the YouTube PhD Academy.
+  version: 1.0.0
+servers:
+  - url: https://wonder-gospel-lunch-fluid.trycloudflare.com
+    description: Cloudflare Tunnel (Remote Code Backend)
+paths:
+  /agents/curriculum/generate:
+    post:
+      summary: Generate Course Curriculum
+      operationId: generateCurriculum
+      description: Instructs the Expert Course Curriculum Agent to generate new modules and lessons.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                courseId:
+                  type: string
+                topic:
+                  type: string
+      responses:
+        "200":
+          description: Successful generation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  modules:
+                    type: array
+                    items:
+                      type: string
+  /agents/youtube/analyze:
+    post:
+      summary: Analyze YouTube Retention
+      operationId: analyzeRetention
+      description: Instructs the YouTube Expert Agent to analyze video retention strategies.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                videoId:
+                  type: string
+      responses:
+        "200":
+          description: Analysis successful
+  /agents/tutor/chat:
+    post:
+      summary: Student Tutoring Chat
+      operationId: studentTutorChat
+      description: Interacts with the Student Tutoring Skills Agent to help students through the course material.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                studentId:
+                  type: string
+                message:
+                  type: string
+      responses:
+        "200":
+          description: Tutor response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reply:
+                    type: string
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+security:
+  - ApiKeyAuth: []

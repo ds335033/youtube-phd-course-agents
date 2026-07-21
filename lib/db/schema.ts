@@ -138,4 +138,35 @@ export const enrollment = pgTable("enrollment", {
   status: text("status").notNull().default("active"), // active, completed, dropped
   enrolledAt: timestamp("enrolled_at").notNull().defaultNow(),
   completedAt: timestamp("completed_at"),
-}); 
+});
+
+export const courseModule = pgTable("course_module", {
+  id: text("id").primaryKey(),
+  courseId: text("course_id").notNull().references(() => course.id, { onDelete: "cascade" }),
+  title: text("title").notNull(),
+  orderIndex: integer("order_index").notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const lesson = pgTable("lesson", {
+  id: text("id").primaryKey(),
+  moduleId: text("module_id").notNull().references(() => courseModule.id, { onDelete: "cascade" }),
+  title: text("title").notNull(),
+  description: text("description"),
+  videoId: text("video_id").notNull(),
+  duration: text("duration").notNull(),
+  orderIndex: integer("order_index").notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const lessonProgress = pgTable("lesson_progress", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+  lessonId: text("lesson_id").notNull().references(() => lesson.id, { onDelete: "cascade" }),
+  completed: boolean("completed").notNull().default(false),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  uniqueIndex("idx_user_lesson_progress").on(table.userId, table.lessonId),
+]);

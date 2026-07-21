@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    "eamodio.gitlens",
+    "googlecloudtools.cloudcode",
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "mtxr.sqltools",
+    "rangav.vscode-thunder-client",
+    "github.vscode-pull-request-github",
+    "gruntfuggly.todo-tree",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "usernamehw.errorlens",
+    "ms-playwright.playwright",
+    "ms-vscode-remote.remote-containers",
+    "continue.continue"
+  ]
+}

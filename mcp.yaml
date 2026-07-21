@@ -1,0 +1,29 @@
+version: "1.0"
+servers:
+  my-mcp-server:
+    type: stdio
+    command: node
+    args:
+      - server.js
+    env:
+      NODE_ENV: production
+      API_KEY: your-api-key
+    disabled: false
+    autoApprove:
+      - execute_command
+
+  another-server:
+    type: stdio
+    command: python
+    args:
+      - -m
+      - mcp_server
+    env:
+      PYTHONPATH: /path/to/python
+
+  http-server:
+    type: http
+    url: https://wonder-gospel-lunch-fluid.trycloudflare.com/sse
+    disabled: false
+
+inputs: []
