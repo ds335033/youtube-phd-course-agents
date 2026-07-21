@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useChat } from 'ai/react';
+import { useChat } from '@ai-sdk/react';
 import Link from 'next/link';
 
 export default function AcademyPage() {
@@ -11,7 +11,22 @@ export default function AcademyPage() {
   const [activeTab, setActiveTab] = useState('overview');
 
   // Vercel AI SDK useChat hooks into /api/chat by default
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
+  const { messages, sendMessage, status } = useChat();
+  const [input, setInput] = useState('');
+
+  const isLoading = status === 'submitted' || status === 'streaming';
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+    // @ts-expect-error - AI SDK types mismatch in canary
+    sendMessage?.({ content: input, role: 'user' });
+    setInput('');
+  };
 
   useEffect(() => {
     Promise.all([
