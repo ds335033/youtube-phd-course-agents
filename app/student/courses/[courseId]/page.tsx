@@ -1,12 +1,9 @@
 "use client";
 
-import { use, useState, Suspense } from "react";
+import { use, Suspense, useState } from "react";
 import Link from "next/link";
-import { getCourseDetails } from "@/lib/db/queries";
 
 function CourseViewerContent({ params }: { params: Promise<{ courseId: string }> }) {
-  const unwrappedParams = use(params);
-  const [course, setCourse] = useState<any>(null);
   const [activeLesson, setActiveLesson] = useState<string>("l1");
 
   const mockModules = [
