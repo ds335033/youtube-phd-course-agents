@@ -1,7 +1,10 @@
+import { Suspense } from 'react';
 import AcademyClient from './AcademyClient';
 
-export const dynamic = 'force-dynamic';
-
 export default function AcademyPage() {
-  return <AcademyClient />;
+  return (
+    <Suspense fallback={<div>Loading Academy...</div>}>
+      <AcademyClient />
+    </Suspense>
+  );
 }
