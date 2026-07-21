@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import CourseClient from "./CourseClient";
 import { db } from "@/lib/db/client";
-import { courseModule, lesson, lessonProgress } from "@/lib/db/schema";
+import { course, courseModule, lesson, lessonProgress } from "@/lib/db/schema";
 import { eq, asc, and } from "drizzle-orm";
 import { getSetupStatus } from "@/lib/setup";
 import { getServerViewer } from "@/lib/session";
@@ -15,21 +15,26 @@ async function CourseViewerContent({ params }: { params: Promise<{ courseId: str
   const viewer = await getServerViewer(setupStatus);
   const userId = viewer?.id || "demo-user-id";
 
-  // Fetch all modules for this course
-  const dbModules = await db.query.courseModule.findMany({
-    where: eq(courseModule.courseId, courseId),
-    orderBy: [asc(courseModule.orderIndex)],
-    with: {
-      lessons: {
-        orderBy: [asc(lesson.orderIndex)]
-      }
-    }
+  // params.courseId is actually the slug (e.g. 'youtube-phd')
+  const courseRecord = await db.query.course.findFirst({
+    where: eq(course.slug, courseId)
   });
+
+  if (!courseRecord) {
+    return (
+      <div className="flex h-[50vh] items-center justify-center flex-col gap-4">
+        <h2 className="text-2xl font-bold text-red-500">Course Not Found</h2>
+        <p className="text-muted-foreground">The requested course could not be located.</p>
+      </div>
+    );
+  }
+
+  const actualCourseId = courseRecord.id;
 
   // Since `with` isn't fully configured in relations sometimes unless defined,
   // let's do a more robust fetch if `lessons` isn't populated via relations:
   
-  const allModules = await db.select().from(courseModule).where(eq(courseModule.courseId, courseId)).orderBy(asc(courseModule.orderIndex));
+  const allModules = await db.select().from(courseModule).where(eq(courseModule.courseId, actualCourseId)).orderBy(asc(courseModule.orderIndex));
   const moduleIds = allModules.map(m => m.id);
   
   let allLessons: any[] = [];
