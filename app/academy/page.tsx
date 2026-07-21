@@ -136,7 +136,7 @@ export default function AcademyPage() {
                         messages.map(m => (
                           <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                             <div className={`max-w-[85%] p-3 rounded-2xl ${m.role === 'user' ? 'bg-indigo-600 text-white rounded-tr-sm' : 'bg-slate-800 text-slate-200 rounded-tl-sm'}`}>
-                              {m.content}
+                              {(m as any).content}
                             </div>
                           </div>
                         ))
