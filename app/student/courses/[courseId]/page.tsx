@@ -1,10 +1,10 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use, useState, Suspense } from "react";
 import Link from "next/link";
 import { getCourseDetails } from "@/lib/db/queries";
 
-export default function CourseViewer({ params }: { params: Promise<{ courseId: string }> }) {
+function CourseViewerContent({ params }: { params: Promise<{ courseId: string }> }) {
   const unwrappedParams = use(params);
   const [course, setCourse] = useState<any>(null);
 
@@ -82,5 +82,17 @@ export default function CourseViewer({ params }: { params: Promise<{ courseId: s
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CourseViewer({ params }: { params: Promise<{ courseId: string }> }) {
+  return (
+    <Suspense fallback={
+      <div className="flex h-[50vh] items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    }>
+      <CourseViewerContent params={params} />
+    </Suspense>
   );
 }
