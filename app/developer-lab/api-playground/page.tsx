@@ -79,7 +79,7 @@ export default function ApiPlayground() {
         <div className="bg-[#0d1117] border rounded-2xl flex flex-col shadow-xl overflow-hidden">
           <div className="bg-[#161b22] px-4 py-3 border-b flex justify-between items-center">
             <span className="font-mono text-sm font-bold text-gray-300">Response Console</span>
-            <span className={\`text-xs font-bold \${response ? 'text-green-500' : 'text-gray-500'}\`}>
+            <span className={`text-xs font-bold ${response ? 'text-green-500' : 'text-gray-500'}`}>
               {response ? "200 OK" : "Waiting for request..."}
             </span>
           </div>

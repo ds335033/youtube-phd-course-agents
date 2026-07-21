@@ -42,7 +42,7 @@ export default function OnboardingPage() {
         <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
           <div 
             className="h-full bg-primary transition-all duration-500 ease-out" 
-            style={{ width: \`\${(step / 4) * 100}%\` }}
+            style={{ width: `${(step / 4) * 100}%` }}
           />
         </div>
       </div>

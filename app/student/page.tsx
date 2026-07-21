@@ -67,12 +67,12 @@ export default function StudentDashboard() {
               ].map((mod, i) => (
                 <div key={i} className="flex items-center justify-between p-4 border rounded-xl bg-card hover:border-primary/50 transition cursor-pointer">
                   <div className="flex items-center gap-3">
-                    <div className={\`w-8 h-8 rounded-full flex items-center justify-center bg-background border \${mod.status === 'In Progress' ? 'border-primary text-primary' : 'text-muted-foreground'}\`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center bg-background border ${mod.status === 'In Progress' ? 'border-primary text-primary' : 'text-muted-foreground'}`}>
                       {i + 1}
                     </div>
                     <span className="font-semibold">{mod.title}</span>
                   </div>
-                  <span className={\`text-sm font-medium \${mod.color}\`}>{mod.status}</span>
+                  <span className={`text-sm font-medium ${mod.color}`}>{mod.status}</span>
                 </div>
               ))}
             </div>

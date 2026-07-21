@@ -66,7 +66,7 @@ export default function CreatorAnalytics() {
                 <span className="text-muted-foreground/30 font-bold text-xl uppercase tracking-widest">Chart Visualization</span>
               </div>
               {[100, 80, 50, 45, 40, 35, 32, 28, 25, 20].map((h, i) => (
-                <div key={i} className="flex-1 bg-gradient-to-t from-primary/80 to-primary/20 rounded-t-sm transition-all" style={{ height: \`\${h}%\` }} />
+                <div key={i} className="flex-1 bg-gradient-to-t from-primary/80 to-primary/20 rounded-t-sm transition-all" style={{ height: `${h}%` }} />
               ))}
             </div>
             <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-sm">

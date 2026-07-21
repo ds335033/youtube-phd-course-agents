@@ -24,7 +24,7 @@ export default function FounderBypassPage() {
         setTimeout(() => router.push("/student"), 1000);
       } else {
         const data = await res.json();
-        setStatus(\`Error: \${data.error}\`);
+        setStatus(`Error: ${data.error}`);
       }
     } catch (err) {
       setStatus("Network error.");

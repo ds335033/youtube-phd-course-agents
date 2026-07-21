@@ -42,8 +42,8 @@ export default function BrandDealSimulator() {
       <div className="bg-card border rounded-2xl p-6 shadow-xl flex flex-col h-[600px]">
         <div className="flex-1 overflow-y-auto space-y-6 mb-6 pr-4">
           {messages.map((msg, i) => (
-            <div key={i} className={\`flex \${msg.sender === 'creator' ? 'justify-end' : 'justify-start'}\`}>
-              <div className={\`max-w-[75%] p-4 rounded-2xl \${msg.sender === 'creator' ? 'bg-primary text-primary-foreground rounded-br-sm' : 'bg-muted text-foreground border rounded-bl-sm'}\`}>
+            <div key={i} className={`flex ${msg.sender === 'creator' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-[75%] p-4 rounded-2xl ${msg.sender === 'creator' ? 'bg-primary text-primary-foreground rounded-br-sm' : 'bg-muted text-foreground border rounded-bl-sm'}`}>
                 <p className="text-[15px] leading-relaxed">{msg.text}</p>
                 <span className="text-xs opacity-70 mt-2 block font-medium">
                   {msg.sender === 'creator' ? 'You' : 'NordVPN PR Agent (AI)'}

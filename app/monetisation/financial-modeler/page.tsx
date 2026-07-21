@@ -85,9 +85,9 @@ export default function FinancialModeler() {
             </div>
             
             <div className="bg-card border rounded-2xl p-6 shadow-xl relative overflow-hidden">
-               <div className={\`absolute top-0 right-0 w-32 h-32 rounded-bl-full pointer-events-none \${profit >= 0 ? 'bg-green-500/10' : 'bg-red-500/10'}\`} />
+               <div className={`absolute top-0 right-0 w-32 h-32 rounded-bl-full pointer-events-none ${profit >= 0 ? 'bg-green-500/10' : 'bg-red-500/10'}`} />
               <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2">Net Profit</h3>
-              <div className={\`text-5xl font-black \${profit >= 0 ? 'text-green-500' : 'text-red-500'}\`}>
+              <div className={`text-5xl font-black ${profit >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                 ${profit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
               </div>
               <p className="text-sm text-muted-foreground mt-4 font-medium">Profit Margin: {margin}%</p>
