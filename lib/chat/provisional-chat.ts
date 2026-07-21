@@ -11,7 +11,7 @@ type StoredPendingChat = {
 export function createProvisionalChatId() {
   const randomId =
     globalThis.crypto?.randomUUID?.() ??
-    `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    `${Date.now()}-${(Math as any).random().toString(36).slice(2)}`;
 
   return `${PROVISIONAL_CHAT_ID_PREFIX}${randomId}`;
 }
