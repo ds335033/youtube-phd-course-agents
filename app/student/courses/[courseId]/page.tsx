@@ -7,77 +7,165 @@ import { getCourseDetails } from "@/lib/db/queries";
 function CourseViewerContent({ params }: { params: Promise<{ courseId: string }> }) {
   const unwrappedParams = use(params);
   const [course, setCourse] = useState<any>(null);
+  const [activeLesson, setActiveLesson] = useState<string>("l1");
 
   // In a real app, this would fetch from Firebase or Neon depending on the architecture
-  // For the UI placeholder, we'll mock the module hierarchy
-  
   const mockModules = [
     {
       id: "mod1",
-      title: "Module 1: YouTube First Principles",
+      title: "Module 1: The 5-Second Protocol",
       lessons: [
-        { id: "l1", title: "The Psychology of the Click", completed: true },
-        { id: "l2", title: "Human Behavior and Retention", completed: false },
-        { id: "l3", title: "Algorithmic Surfing", completed: false },
+        { id: "l1", title: "Hooking Viewers Before They Scroll", completed: true, duration: "12:45" },
+        { id: "l2", title: "Visual vs Auditory Hooks", completed: true, duration: "15:20" },
+        { id: "l3", title: "The 'Open Loop' Technique", completed: false, duration: "08:30" },
       ]
     },
     {
       id: "mod2",
-      title: "Module 2: Advanced Hook Architecture",
+      title: "Module 2: Psychological Pacing",
       lessons: [
-        { id: "l4", title: "Visual vs Auditory Hooks", completed: false },
-        { id: "l5", title: "The First 5 Seconds", completed: false },
+        { id: "l4", title: "Structuring the Mid-Roll Drop", completed: false, duration: "18:10" },
+        { id: "l5", title: "Pattern Interrupts in Editing", completed: false, duration: "11:05" },
+        { id: "l6", title: "Maintaining the Payoff Matrix", completed: false, duration: "14:50" },
+      ]
+    },
+    {
+      id: "mod3",
+      title: "Module 3: CTR Manipulation",
+      lessons: [
+        { id: "l7", title: "Thumbnail Psychology 101", completed: false, duration: "22:15" },
+        { id: "l8", title: "Title Formulas that Force Clicks", completed: false, duration: "17:40" },
+        { id: "l9", title: "A/B Testing Strategies", completed: false, duration: "10:20" },
+      ]
+    },
+    {
+      id: "mod4",
+      title: "Module 4: Algorithm Exploits",
+      lessons: [
+        { id: "l10", title: "What the AI Actually Cares About", completed: false, duration: "25:00" },
+        { id: "l11", title: "Session Time vs Click-Through Rate", completed: false, duration: "19:30" },
+      ]
+    },
+    {
+      id: "mod5",
+      title: "Module 5: Creator Monetisation",
+      lessons: [
+        { id: "l12", title: "Beyond AdSense: Building LTV", completed: false, duration: "28:45" },
+        { id: "l13", title: "Sponsorship Negotiation Tactics", completed: false, duration: "21:10" },
       ]
     }
   ];
 
+  // Helper to find the active lesson title
+  let currentLessonTitle = "";
+  for (const mod of mockModules) {
+    const lesson = mod.lessons.find((l) => l.id === activeLesson);
+    if (lesson) currentLessonTitle = lesson.title;
+  }
+
   return (
-    <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
+    <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-12">
       <div className="flex items-center space-x-4">
         <Link href="/student" className="text-muted-foreground hover:text-foreground">← Back to Dashboard</Link>
       </div>
 
       <header className="border-b pb-6">
-        <h1 className="text-4xl font-bold tracking-tight">Course: {unwrappedParams.courseId}</h1>
+        <h1 className="text-4xl font-bold tracking-tight">The YouTube Retention Architecture</h1>
         <p className="text-muted-foreground mt-2 text-lg">Mastering the fundamentals of creator intelligence.</p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="md:col-span-2 space-y-8">
-          {mockModules.map((module) => (
-            <div key={module.id} className="bg-card border rounded-2xl p-6 shadow-sm">
-              <h2 className="text-2xl font-bold mb-4">{module.title}</h2>
-              <div className="space-y-3">
-                {module.lessons.map((lesson) => (
-                  <div key={lesson.id} className="flex items-center justify-between p-4 border rounded-xl bg-background hover:border-primary/50 transition cursor-pointer">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${lesson.completed ? 'bg-primary border-primary text-primary-foreground' : 'bg-muted border-muted-foreground'}`}>
-                        {lesson.completed && <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>}
-                      </div>
-                      <span className="font-semibold">{lesson.title}</span>
-                    </div>
-                    <span className="text-sm font-medium text-muted-foreground">15 mins</span>
-                  </div>
-                ))}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {/* Left Column: Video Player & Content */}
+        <div className="lg:col-span-2 space-y-6">
+          <div className="aspect-video bg-black rounded-2xl border border-white/10 overflow-hidden relative shadow-2xl group flex items-center justify-center">
+            {/* Fake Video Player UI */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
+            
+            <div className="z-20 text-center space-y-4">
+              <div className="w-20 h-20 bg-primary/90 rounded-full flex items-center justify-center mx-auto cursor-pointer hover:scale-110 transition-transform shadow-lg shadow-primary/50">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 text-white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
               </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="space-y-6">
-           <div className="bg-card border rounded-2xl p-6 shadow-xl sticky top-24">
-            <h3 className="text-lg font-bold mb-4">Course Progress</h3>
-            <div className="h-2 w-full bg-muted rounded-full overflow-hidden mb-4">
-              <div className="h-full bg-primary" style={{ width: "20%" }} />
-            </div>
-            <div className="flex justify-between text-sm font-medium text-muted-foreground mb-6">
-              <span>20% Complete</span>
-              <span>1 / 5 Lessons</span>
+              <h3 className="text-white font-medium text-lg drop-shadow-md">{currentLessonTitle}</h3>
             </div>
             
-            <button className="w-full py-3 bg-primary text-primary-foreground font-bold rounded-xl hover:bg-primary/90 transition-transform hover:-translate-y-0.5">
-              Continue Learning
-            </button>
+            <div className="absolute bottom-0 left-0 right-0 p-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="h-1.5 w-full bg-white/20 rounded-full overflow-hidden mb-2 cursor-pointer">
+                <div className="h-full bg-primary w-1/3" />
+              </div>
+              <div className="flex justify-between items-center text-xs text-white font-medium">
+                <span>04:12 / 12:45</span>
+                <div className="flex gap-4">
+                  <span>HD</span>
+                  <span>[ ]</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-card border rounded-2xl p-6 shadow-sm">
+            <h2 className="text-2xl font-bold mb-2">Lesson Overview</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              In this lesson, we dive deep into the psychology of viewer retention. You'll learn exactly why the first 5 seconds dictate the trajectory of your video's algorithm performance. The AI Agentic swarm has analyzed over 10,000 viral videos to bring you these core principles.
+            </p>
+          </div>
+        </div>
+
+        {/* Right Column: Module Navigation */}
+        <div className="space-y-6">
+          <div className="bg-card border rounded-2xl p-6 shadow-xl sticky top-8 max-h-[85vh] overflow-y-auto">
+            <div className="mb-6">
+              <h3 className="text-lg font-bold mb-3">Course Progress</h3>
+              <div className="flex justify-between text-sm font-medium text-muted-foreground mb-2">
+                <span>15% Complete</span>
+                <span>2 / 13 Lessons</span>
+              </div>
+              <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                <div className="h-full bg-primary" style={{ width: "15%" }} />
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              {mockModules.map((module) => (
+                <div key={module.id} className="space-y-3">
+                  <h4 className="font-bold text-sm text-muted-foreground uppercase tracking-wider">{module.title}</h4>
+                  <div className="space-y-2">
+                    {module.lessons.map((lesson) => {
+                      const isActive = activeLesson === lesson.id;
+                      return (
+                        <div 
+                          key={lesson.id} 
+                          onClick={() => setActiveLesson(lesson.id)}
+                          className={`flex items-center justify-between p-3 border rounded-xl transition cursor-pointer ${
+                            isActive 
+                              ? 'bg-primary/10 border-primary text-primary' 
+                              : 'bg-background hover:border-primary/50'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3 overflow-hidden">
+                            <div className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center border ${
+                              lesson.completed 
+                                ? 'bg-primary border-primary text-primary-foreground' 
+                                : isActive 
+                                  ? 'border-primary' 
+                                  : 'bg-muted border-muted-foreground'
+                            }`}>
+                              {lesson.completed && <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>}
+                              {isActive && !lesson.completed && <div className="w-2 h-2 rounded-full bg-primary" />}
+                            </div>
+                            <span className={`font-semibold text-sm truncate ${isActive ? 'text-foreground' : ''}`}>
+                              {lesson.title}
+                            </span>
+                          </div>
+                          <span className="text-xs font-medium text-muted-foreground shrink-0 ml-2">{lesson.duration}</span>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+            
           </div>
         </div>
       </div>
