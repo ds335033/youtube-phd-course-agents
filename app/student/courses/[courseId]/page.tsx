@@ -9,56 +9,55 @@ function CourseViewerContent({ params }: { params: Promise<{ courseId: string }>
   const [course, setCourse] = useState<any>(null);
   const [activeLesson, setActiveLesson] = useState<string>("l1");
 
-  // In a real app, this would fetch from Firebase or Neon depending on the architecture
   const mockModules = [
     {
       id: "mod1",
       title: "Module 1: The 5-Second Protocol",
       lessons: [
-        { id: "l1", title: "Hooking Viewers Before They Scroll", completed: true, duration: "12:45", videoId: "Wm_vHecjGMM" },
-        { id: "l2", title: "Visual vs Auditory Hooks", completed: true, duration: "15:20", videoId: "L1zB_09rF9E" },
-        { id: "l3", title: "The 'Open Loop' Technique", completed: false, duration: "08:30", videoId: "M7FIvfx5J10" },
+        { id: "l1", title: "Hooking Viewers Before They Scroll", completed: true, duration: "12:45", videoId: "WODnqHPLR38" },
+        { id: "l2", title: "Visual vs Auditory Hooks", completed: true, duration: "15:20", videoId: "WODnqHPLR38" },
+        { id: "l3", title: "The 'Open Loop' Technique", completed: false, duration: "08:30", videoId: "WODnqHPLR38" },
       ]
     },
     {
       id: "mod2",
       title: "Module 2: Psychological Pacing",
       lessons: [
-        { id: "l4", title: "Structuring the Mid-Roll Drop", completed: false, duration: "18:10", videoId: "jNQXAC9IVRw" },
-        { id: "l5", title: "Pattern Interrupts in Editing", completed: false, duration: "11:05", videoId: "Wm_vHecjGMM" },
-        { id: "l6", title: "Maintaining the Payoff Matrix", completed: false, duration: "14:50", videoId: "L1zB_09rF9E" },
+        { id: "l4", title: "Structuring the Mid-Roll Drop", completed: false, duration: "18:10", videoId: "WODnqHPLR38" },
+        { id: "l5", title: "Pattern Interrupts in Editing", completed: false, duration: "11:05", videoId: "WODnqHPLR38" },
+        { id: "l6", title: "Maintaining the Payoff Matrix", completed: false, duration: "14:50", videoId: "WODnqHPLR38" },
       ]
     },
     {
       id: "mod3",
       title: "Module 3: CTR Manipulation",
       lessons: [
-        { id: "l7", title: "Thumbnail Psychology 101", completed: false, duration: "22:15", videoId: "L1zB_09rF9E" },
-        { id: "l8", title: "Title Formulas that Force Clicks", completed: false, duration: "17:40", videoId: "M7FIvfx5J10" },
-        { id: "l9", title: "A/B Testing Strategies", completed: false, duration: "10:20", videoId: "Wm_vHecjGMM" },
+        { id: "l7", title: "Thumbnail Psychology 101", completed: false, duration: "22:15", videoId: "WODnqHPLR38" },
+        { id: "l8", title: "Title Formulas that Force Clicks", completed: false, duration: "17:40", videoId: "WODnqHPLR38" },
+        { id: "l9", title: "A/B Testing Strategies", completed: false, duration: "10:20", videoId: "WODnqHPLR38" },
       ]
     },
     {
       id: "mod4",
       title: "Module 4: Algorithm Exploits",
       lessons: [
-        { id: "l10", title: "What the AI Actually Cares About", completed: false, duration: "25:00", videoId: "Wm_vHecjGMM" },
-        { id: "l11", title: "Session Time vs Click-Through Rate", completed: false, duration: "19:30", videoId: "L1zB_09rF9E" },
+        { id: "l10", title: "What the AI Actually Cares About", completed: false, duration: "25:00", videoId: "WODnqHPLR38" },
+        { id: "l11", title: "Session Time vs Click-Through Rate", completed: false, duration: "19:30", videoId: "WODnqHPLR38" },
       ]
     },
     {
       id: "mod5",
       title: "Module 5: Creator Monetisation",
       lessons: [
-        { id: "l12", title: "Beyond AdSense: Building LTV", completed: false, duration: "28:45", videoId: "M7FIvfx5J10" },
-        { id: "l13", title: "Sponsorship Negotiation Tactics", completed: false, duration: "21:10", videoId: "Wm_vHecjGMM" },
+        { id: "l12", title: "Beyond AdSense: Building LTV", completed: false, duration: "28:45", videoId: "WODnqHPLR38" },
+        { id: "l13", title: "Sponsorship Negotiation Tactics", completed: false, duration: "21:10", videoId: "WODnqHPLR38" },
       ]
     }
   ];
 
   // Helper to find the active lesson details
   let currentLessonTitle = "";
-  let currentVideoId = "Wm_vHecjGMM"; // fallback
+  let currentVideoId = "WODnqHPLR38"; // fallback
   for (const mod of mockModules) {
     const lesson = mod.lessons.find((l) => l.id === activeLesson);
     if (lesson) {
