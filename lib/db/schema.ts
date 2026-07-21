@@ -101,3 +101,41 @@ export const chatEvent = pgTable(
 export type Chat = typeof chat.$inferSelect;
 export type ChatEvent = typeof chatEvent.$inferSelect;
 export type User = typeof user.$inferSelect;
+
+// --- ACADEMIC HIERARCHY ---
+
+export const faculty = pgTable("faculty", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(), // e.g. "Faculty of YouTube & Creator Science"
+  slug: text("slug").notNull().unique(),
+  description: text("description"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const program = pgTable("program", {
+  id: text("id").primaryKey(),
+  facultyId: text("faculty_id").notNull().references(() => faculty.id, { onDelete: "cascade" }),
+  name: text("name").notNull(), // e.g. "Doctor of YouTube & Creator Intelligence"
+  slug: text("slug").notNull().unique(),
+  description: text("description"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const course = pgTable("course", {
+  id: text("id").primaryKey(),
+  programId: text("program_id").notNull().references(() => program.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  slug: text("slug").notNull().unique(),
+  difficultyLevel: text("difficulty_level"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Link between user and their enrolled programs/courses
+export const enrollment = pgTable("enrollment", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+  courseId: text("course_id").notNull().references(() => course.id, { onDelete: "cascade" }),
+  status: text("status").notNull().default("active"), // active, completed, dropped
+  enrolledAt: timestamp("enrolled_at").notNull().defaultNow(),
+  completedAt: timestamp("completed_at"),
+}); 

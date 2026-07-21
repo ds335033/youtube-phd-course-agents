@@ -407,3 +407,52 @@ export async function saveChatSnapshot({
 export async function deleteChatForUser(chatId: string, userId: string) {
   await db.delete(chat).where(and(eq(chat.id, chatId), eq(chat.userId, userId)));
 }
+
+// --- ACADEMIC QUERIES ---
+
+import { enrollment, course, program } from "./schema";
+
+export async function getUserEnrollments(userId: string) {
+  try {
+    const enrollments = await db
+      .select({
+        enrollmentId: enrollment.id,
+        status: enrollment.status,
+        enrolledAt: enrollment.enrolledAt,
+        course: {
+          id: course.id,
+          name: course.name,
+          slug: course.slug,
+          difficultyLevel: course.difficultyLevel,
+        },
+        program: {
+          id: program.id,
+          name: program.name,
+        }
+      })
+      .from(enrollment)
+      .innerJoin(course, eq(enrollment.courseId, course.id))
+      .innerJoin(program, eq(course.programId, program.id))
+      .where(eq(enrollment.userId, userId));
+      
+    return enrollments;
+  } catch (error) {
+    console.error("Failed to fetch user enrollments:", error);
+    return [];
+  }
+}
+
+export async function getCourseDetails(courseSlug: string) {
+  try {
+    const courseDetails = await db
+      .select()
+      .from(course)
+      .where(eq(course.slug, courseSlug))
+      .limit(1);
+      
+    return courseDetails[0] || null;
+  } catch (error) {
+    console.error("Failed to fetch course:", error);
+    return null;
+  }
+}

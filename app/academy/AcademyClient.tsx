@@ -10,6 +10,9 @@ export default function AcademyClient() {
   const [activeVideo, setActiveVideo] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('overview');
 
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [founderKey, setFounderKey] = useState('');
+  
   // Vercel AI SDK useChat hooks into /api/chat by default
   const { messages, sendMessage, status } = useChat();
   const [input, setInput] = useState('');
@@ -29,6 +32,11 @@ export default function AcademyClient() {
   };
 
   useEffect(() => {
+    // Check if previously unlocked
+    if (localStorage.getItem('founder_unlocked') === 'true') {
+      setIsUnlocked(true);
+    }
+
     Promise.all([
       fetch('/channel_info.json').then(res => res.json()),
       fetch('/video_data.json').then(res => res.json())
@@ -39,8 +47,50 @@ export default function AcademyClient() {
     }).catch(console.error);
   }, []);
 
+  const handleUnlock = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Requires the exact key to unlock the interface (for the founder only)
+    const validKey = process.env.NEXT_PUBLIC_FOUNDER_KEY || 'DAZZA_PHD_2026';
+    if (founderKey === validKey) { 
+      localStorage.setItem('founder_unlocked', 'true');
+      setIsUnlocked(true);
+    } else {
+      alert('Invalid Founder API Key. Access Denied.');
+      setFounderKey('');
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#09090b] text-slate-50 font-sans flex flex-col">
+    <div className="min-h-screen bg-[#09090b] text-slate-50 font-sans flex flex-col relative">
+      
+      {!isUnlocked && (
+        <div className="absolute inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-xl">
+          <div className="bg-slate-900/80 p-10 rounded-2xl border border-indigo-500/30 shadow-[0_0_50px_rgba(99,102,241,0.2)] max-w-md w-full mx-4 text-center">
+            <div className="w-16 h-16 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-indigo-500/50">
+              <span className="text-2xl">🗝️</span>
+            </div>
+            <h2 className="text-2xl font-black mb-2">Restricted Access</h2>
+            <p className="text-slate-400 mb-8">Enter your Founder's API Key to unlock the full YouTube PhD Academy interface.</p>
+            
+            <form onSubmit={handleUnlock} className="space-y-4">
+              <input
+                type="password"
+                value={founderKey}
+                onChange={(e) => setFounderKey(e.target.value)}
+                placeholder="sk-founder-..."
+                required
+                className="w-full p-4 bg-black/50 border border-white/10 rounded-lg text-white outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-center tracking-widest font-mono"
+              />
+              <button
+                type="submit"
+                className="w-full p-4 bg-gradient-to-br from-indigo-500 to-indigo-600 hover:to-indigo-500 text-white font-bold text-lg rounded-lg transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_20px_rgba(99,102,241,0.4)]"
+              >
+                Unlock Interface →
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
       {/* Navbar */}
       <nav className="flex justify-between items-center px-8 py-4 bg-slate-900 border-b border-white/10 sticky top-0 z-50">
         <div className="flex items-center gap-3">

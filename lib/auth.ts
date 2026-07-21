@@ -22,6 +22,10 @@ const allowedHosts = [
   getAppUrlHost(process.env.VERCEL_URL),
 ].filter((host): host is string => Boolean(host));
 
+const googleClientId = process.env.GOOGLE_CLIENT_ID?.trim() ?? "";
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET?.trim() ?? "";
+const googleProviderConfigured = Boolean(betterAuthSecret && googleClientId && googleClientSecret);
+
 export const auth = betterAuth({
   baseURL: {
     allowedHosts,
@@ -31,15 +35,18 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
+  emailAndPassword: {
+    enabled: true,
+  },
   account: {
     encryptOAuthTokens: true,
     accountLinking: {
       enabled: true,
-      trustedProviders: ["vercel"],
+      trustedProviders: ["google"],
       allowDifferentEmails: true,
     },
   },
-  secret: betterAuthSecret ?? "eve-chat-template-unconfigured-secret",
+  secret: betterAuthSecret ?? "youtube-phd-academy-development-secret",
   advanced: {
     database: {
       generateId: () => randomUUID(),
@@ -48,13 +55,11 @@ export const auth = betterAuth({
   onAPIError: {
     errorURL: "/auth/error",
   },
-  socialProviders: vercelProviderConfigured
+  socialProviders: googleProviderConfigured
     ? {
-        vercel: {
-          clientId: vercelClientId,
-          clientSecret: vercelClientSecret,
-          overrideUserInfoOnSignIn: true,
-          scope: ["openid", "email", "profile"],
+        google: {
+          clientId: googleClientId,
+          clientSecret: googleClientSecret,
         },
       }
     : {},

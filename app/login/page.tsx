@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { authClient } from '@/lib/auth-client';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -19,11 +20,21 @@ export default function LoginPage() {
     setErrorMsg('');
 
     try {
-      // Mock login for now. We will integrate Better Auth later.
-      setTimeout(() => {
-        setStatus('Success!');
-        router.push('/academy');
-      }, 500);
+      const { data, error } = await authClient.signIn.email({
+        email,
+        password
+      });
+
+      if (error) {
+        setErrorMsg(error.message || 'Invalid credentials');
+        setStatus('Enter Dashboard →');
+        setIsLoading(false);
+        return;
+      }
+
+      setStatus('Success!');
+      // Route to the new onboarding experience
+      router.push('/onboarding');
     } catch (error) {
       console.error(error);
       setErrorMsg('Server error. Try again.');
